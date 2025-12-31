@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+
+.page{
+  position:absolute;
+  width:100%;
+  height:100vh;
+  display:none;
+  background-size:cover;
+  background-position:center;
+}
+
+.page::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(3px);
+}
+
+.page.active{display:block;}
+
+.content{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  top:50%;
+  transform:translateY(-50%);
+  padding:25px;
+  animation:fadeUp 1s ease;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.3rem;
+  color:gold;
+  margin-bottom:15px;
+}
+
+p{
+  font-size:1.1rem;
+  line-height:1.7;
+  min-height:130px;
+}
+
+.gallery{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  margin-top:18px;
+}
+
+.gallery img{
+  width:30%;
+  border-radius:15px;
+  box-shadow:0 0 20px rgba(255,255,255,0.3);
+}
+
+button{
+  margin-top:25px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:gold;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.heart{
+  position:fixed;
+  color:pink;
+  animation:floatUp 4s linear infinite;
+}
+
+@keyframes floatUp{
+  from{transform:translateY(100vh);opacity:1}
+  to{transform:translateY(-10vh);opacity:0}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(-50%)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SLIDE 1 -->
+<div class="page active" style="background-image:url('bg1.jpg')">
+  <div class="content">
+    <h1>Hey ❤️</h1>
+    <p id="t1"></p>
+    <div class="gallery">
+      <img src="p1.jpg">
+      <img src="p2.jpg">
+    </div>
+    <button onclick="next()">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="page" style="background-image:url('bg2.jpg')">
+  <div class="content">
+    <h1>Some Memories 🫶</h1>
+    <p id="t2"></p>
+    <div class="gallery">
+      <img src="p3.jpg">
+      <img src="p4.jpg">
+    </div>
+    <button onclick="next()">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="page" style="background-image:url('bg3.jpg')">
+  <div class="content">
+    <h1>Just Saying 💌</h1>
+    <p id="t3"></p>
+    <div class="gallery">
+      <img src="p5.jpg">
+      <img src="p6.jpg">
+    </div>
+    <button onclick="next()">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="page" style="background-image:url('bg4.jpg')">
+  <div class="content">
+    <h1>Us 🖤</h1>
+    <p id="t4"></p>
+    <div class="gallery">
+      <img src="p2.jpg">
+      <img src="p3.jpg">
+    </div>
+    <button onclick="next()">Next →</button>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="page" style="background-image:url('bg5.jpg')">
+  <div class="content">
+    <h1>Happy New Year 🎆</h1>
+    <p id="t5"></p>
+    <div class="gallery">
+      <img src="p4.jpg">
+      <img src="p5.jpg">
+    </div>
+    <button onclick="next()">Final →</button>
+  </div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="page" style="background-image:url('bg1.jpg')">
+  <div class="content">
+    <h1>❤️</h1>
+    <p id="t6"></p>
+    <div class="gallery">
+      <img src="p6.jpg">
+      <img src="p1.jpg">
+    </div>
+  </div>
+</div>
+
+<script>
+const texts = [
+`This year has been really special —
+not just for you, but for us.
+We’ve learned so much together,
+and it honestly feels unreal
+that we’ve been together for almost three years.`,
+
+`Some memories we’ve shared 🫶
+Every single one of these moments
+has a special place in my heart.
+Always.`,
+
+`So gullyyy…
+what if we’re far right now?
+That doesn’t stop us from celebrating.
+And you look insanely beautiful today.`,
+
+`We fought a lot this year 😭
+But nothing could ever break us.
+It’s always been us.`,
+
+`Happy New Year, bubble 🫶
+We found ourselves again.
+And I’m so proud of you.`,
+
+`Happy New Year ❤️
+I’ll always be here —
+through everything.
+With love,
+Hun Bun 🤍`
+];
+
+let page = 0, char = 0;
+
+function typeText(el, text){
+  if(char < text.length){
+    el.innerHTML += text.charAt(char);
+    char++;
+    setTimeout(()=>typeText(el,text),30);
+  }
+}
+
+function next(){
+  document.querySelectorAll('.page')[page].classList.remove('active');
+  page++;
+  if(page < 6){
+    document.querySelectorAll('.page')[page].classList.add('active');
+    char = 0;
+    document.getElementById("t"+(page+1)).innerHTML="";
+    typeText(document.getElementById("t"+(page+1)),texts[page]);
+  }
+  if(page===1) document.getElementById("bgm").play();
+}
+
+typeText(document.getElementById("t1"),texts[0]);
+
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+},700);
+</script>
+
+</body>
+</html>
